@@ -121,43 +121,40 @@ window.addEventListener('mousedown', (event) => {
 });
 
 // Ajout de la modal pour l'ajout de photo
-const modalContent = document.querySelector('.modal-content');
+const modalContent = document.getElementById('modal-content');
+modalContent.style.display = 'block';
 const addPhotoButton = document.createElement('button');
 addPhotoButton.textContent = 'Ajouter une photo';
 addPhotoButton.addEventListener('click', openNewModal);
 modalContent.appendChild(addPhotoButton);
 
-const newModal = document.getElementById('modal-add-photo');
-newModal.classList.add('modal', 'modal-add-photo', 'hidden');
-newModal.addEventListener('click', closeModalAddPhoto);
+const modalAddPhoto = document.getElementById('modal-add-photo');
+modalAddPhoto.style.display = 'none';
+modalAddPhoto.addEventListener('click', closeModalAddPhoto);
 
-const newModalContent = document.createElement('div');
-newModalContent.classList.add('modal-content');
+
 
 const closeButton = document.createElement('span');
 closeButton.classList.add('close');
 closeButton.textContent = '×';
 closeButton.addEventListener('click', closeModalAddPhoto);
 
-newModalContent.appendChild(closeButton);
+modalAddPhoto.appendChild(closeButton);
 
 const newModalTitle = document.createElement('h3');
 newModalTitle.textContent = 'Ajouter une photo';
-newModalContent.appendChild(newModalTitle);
+modalAddPhoto.appendChild(newModalTitle);
 
 const newModalContentBody = document.createElement('div');
 newModalContentBody.classList.add('modal-body');
 
-newModalContent.appendChild(newModalContentBody);
+modalContent.appendChild(newModalContentBody);
 
-newModal.appendChild(newModalContent);
-
-document.body.appendChild(newModal);
 
 function openNewModal() {
-  newModal.classList.remove('hidden');
-  newModal.style.display = 'block';
-  modal.style.display = 'none';
+  modalAddPhoto.classList.remove('hidden');
+  modalAddPhoto.style.display = 'block';
+  modalContent.style.display = 'none';
 }
 
 function closeModalAddPhoto(event) {
