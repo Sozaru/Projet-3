@@ -1,5 +1,4 @@
 
-// checkLoginStatus();
 let loginLink = document.getElementById("login");
 let openModalButton = document.getElementById("openmodalbutton");
 
@@ -103,8 +102,10 @@ const modal = document.getElementById('modal');
 const closeBtn = document.querySelector('.close');
 
 function openModal() {
+  modalContent.style.display = 'block';
   modal.style.display = 'block';
 }
+
 
 function closeModal() {
   modal.style.display = 'none';
@@ -130,25 +131,26 @@ modalContent.appendChild(addPhotoButton);
 
 const modalAddPhoto = document.getElementById('modal-add-photo');
 modalAddPhoto.style.display = 'none';
-modalAddPhoto.addEventListener('click', closeModalAddPhoto);
+
 
 
 
 const closeButton = document.createElement('span');
 closeButton.classList.add('close');
 closeButton.textContent = '×';
-closeButton.addEventListener('click', closeModalAddPhoto);
+closeButton.addEventListener('click', (event) => closeModalAddPhoto(event, modalAddPhoto));
 
-modalAddPhoto.appendChild(closeButton);
+const addPhotoForm = document.getElementById ('addPhotoForm')
+modalAddPhoto.insertBefore(closeButton,addPhotoForm);
 
 const newModalTitle = document.createElement('h3');
 newModalTitle.textContent = 'Ajouter une photo';
-modalAddPhoto.appendChild(newModalTitle);
+modalAddPhoto.insertBefore(newModalTitle,addPhotoForm);
 
 const newModalContentBody = document.createElement('div');
 newModalContentBody.classList.add('modal-body');
 
-modalContent.appendChild(newModalContentBody);
+modalAddPhoto.appendChild(newModalContentBody);
 
 
 function openNewModal() {
@@ -158,10 +160,15 @@ function openNewModal() {
 }
 
 function closeModalAddPhoto(event) {
-  const modal = event.target.closest('.modal');
-  if (modal) {
-    modal.remove();
-  }
+  event.stopPropagation(); 
+    modalAddPhoto.style.display = "none";
+    modalAddPhoto.classList.add('hidden') ;
+    modal.style.display = 'none';
 }
+
+
+
+
+
 
 checkLoginStatus();
