@@ -43,27 +43,30 @@
 					<h3>Galerie photo</h3>
 					<div class="modal-gallery"></div>
 				</div>
-					<!-- Formulaire d'ajout de photo -->
+										<!-- Formulaire d'ajout de photo -->
 					<div id="modal-add-photo" class="modal-content">			
-							<form id="addPhotoForm">
-								<label for="photoTitle">Titre :</label>
-								<input type="text" id="photoTitle" name="photoTitle" required>
-					
-								<label for="photoUrl">URL de l'image :</label>
-								<input type="url" id="photoUrl" name="photoUrl" required>
-					
-								<label for="photoCategory">Catégorie :</label>
-								<select id="photoCategory" name="photoCategory" required>
-									<option value="">Sélectionner une catégorie</option>
-									<option value="Objets">Objets</option>
-									<option value="Appartements">Appartements</option>
-									<option value="Hotels & restaurants">Hotels & restaurants</option>
-								</select>
-					
-								<input type="submit" value="Ajouter">
-							</form>
-						
+						<form id="addPhotoForm">
+							
+							<label for="photoFile">Choisir une image :</label>
+							<input type="file" id="image" name="photoFile" accept="image/*" required>
+
+
+							<label for="photoTitle">Titre :</label>
+							<input type="text" id="title" name="photoTitle" required>
+							
+							
+							
+							<label for="photoCategory">Catégorie :</label>
+							<select id="category" name="photoCategory" required>
+								<option value=1>Objets</option>
+								<option value=2>Appartements</option>
+								<option value=3>Hotels & restaurants</option>
+							</select>
+							
+							<input type="submit" value="Valider	">
+						</form>
 					</div>
+
 					
 				
 		  	</div>

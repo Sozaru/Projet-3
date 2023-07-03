@@ -173,11 +173,12 @@ input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
-	background-color: #1D6154;
+	background-color:#1D6154 ;
 	margin : 2em auto ;
-	width: 180px;
+	width: 237px;
 	text-align: center;
 	border-radius: 60px ;
+	height: 36px;
 }
 
 footer nav ul {
@@ -248,8 +249,9 @@ footer nav ul {
   .modal-content h3 {
 	font-size: 26px;
 	width: 50%;
-	padding-left: 250px;
+	padding-left: 200px;
 	padding-top: 50px;
+	
   }
 
   .newModalContentBody {
@@ -285,3 +287,72 @@ footer nav ul {
 	
 	display: flex;
   }
+
+  .hidden {
+	display: none;
+  }
+  
+  .filters {
+	display: flex;
+	justify-content: center;
+	padding: 10px;
+  }
+
+  .filter-button {
+	border-radius: 25px;
+	margin: 5px;
+	padding: 5px 15px 5px 15px;
+	border-color: #1D6154;
+	background-color: #fefefe;
+	color: #1D6154;
+	font-family: 'Syne', sans-serif;
+  }
+
+  .filter-button:hover {
+	background-color: #1D6154;
+	color: #fefefe;
+  }
+
+  .fa-regular {
+	margin-top: 10px;
+	background-color: #fefefe;
+	border: #fefefe;
+	font-family: 'Work Sans';
+  }
+
+  #addPhotoButton {
+	border-radius: 25px;
+	margin: 5px;
+	padding: 5px 15px 5px 15px;
+	border-color: #1D6154;
+	background-color: #1D6154;
+	color: #fefefe;
+	font-family: 'Syne', sans-serif;
+	position: absolute;
+	bottom: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+
+  }
+
+  
+  #addPhotoButton::before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: -40px;
+	left: -100%;
+	width: 470px;
+	height: 2px;
+	background-color: #ccc;
+  }
+  
+  .return-button {
+	margin-top: 10px;
+	background-color: #fefefe;
+	border: #fefefe;
+	font-family: 'Work Sans';
+  }
+  
+  
+  
