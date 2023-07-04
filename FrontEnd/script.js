@@ -182,7 +182,6 @@ function createReturnButton() {
   
   if (!document.querySelector('.return-button')) {
     // Création du bouton retour
-    // ...
   }
   
 }
@@ -203,27 +202,26 @@ function handleAddPhotoFormSubmit(event) {
 	
   // Créer un objet FormData et y ajouter les données du formulaire
   const formData = new FormData();
-  formData.append('photoTitle', photoTitle);
-  formData.append('photoFile', photoFile);
-  formData.append('photoCategory', photoCategory);
-	
+  formData.append('image', photoFile);
+  formData.append('title', photoTitle);
+  formData.append('category', photoCategory);
   // Effectuer une requête POST vers l'API pour ajouter la photo
   fetch('http://localhost:5678/api/works', {
     method: 'POST',
-    body: formData,
+    body:formData,
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}` // Ajouter le token d'authentification
+      'Authorization': `Bearer ${localStorage.getItem('token')}` 
     }
     
   })
-    .then(response => response.json())
-    .then(data => {
+    .then(function(response)  {
+      if(response.ok){
       // Traiter la réponse de l'API (par exemple, afficher un message de succès)
       console.log('Photo ajoutée avec succès:', data);
       // Fermer la modal d'ajout de photo
       closeModalAddPhoto();
       // Rafraîchir la galerie d'images pour afficher la nouvelle photo
-      refreshGallery();
+      refreshGallery();}else{console.error('photo rejeter par le server')}
     })
     .catch(error => {
       console.error('Une erreur s\'est produite lors de l\'ajout de la photo :', error);
