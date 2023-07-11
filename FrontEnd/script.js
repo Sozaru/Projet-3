@@ -14,26 +14,85 @@ fetch('http://localhost:5678/api/works')
       const figure = document.createElement('figure');
       const image = document.createElement('img');
       const figcaption = document.createElement('figcaption');
-
+    
       image.src = work.imageUrl;
       image.alt = work.title;
-
+    
       figcaption.textContent = work.title;
-
+    
       // Ajout des attributs aux éléments figure
       figure.setAttribute('data-category', work.category.name);
       figure.setAttribute('data-image-id', work.id);
-
+    
       figure.appendChild(image);
       figure.appendChild(figcaption);
+      
 
-      gallery.appendChild(figure);
-
+    
+      // Ajoutez le clone figure à la galerie normale
+      document.querySelector('.gallery').appendChild(figure.cloneNode(true));
+    
       // Création d'un clone de l'élément figure pour la galerie modale
       const modalFigure = figure.cloneNode(true);
-      modalFigure.removeChild(modalFigure.querySelector('figcaption')); 
-      modalGallery.appendChild(modalFigure);
+      
+      // Création du bouton pour l'icône de suppression
+      const deleteButton = document.createElement('button');
+      deleteButton.className = 'delete-button';
+
+      // Création de l'élément icône et ajout à l'image de la modal
+      const icon = document.createElement('i');
+      icon.className = 'far fa-trash-can';
+
+      // Ajout de l'icône au bouton
+      deleteButton.appendChild(icon);
+
+      // Insertion du bouton dans la figure modale
+      modalFigure.insertBefore(deleteButton, modalFigure.childNodes[0]);
+
+      deleteButton.addEventListener('click', () => {
+      });      
+
+      const modalFigcaption = modalFigure.querySelector('figcaption');
+      modalFigcaption.textContent = 'éditer'; 
+      
+      // Ajout de la figure à la galerie modale
+      document.querySelector('.modal-gallery').appendChild(modalFigure);
+
+      deleteButton.addEventListener('click', () => {
+        // Récupérer l'ID de l'image
+        const imageId = modalFigure.getAttribute('data-image-id');
+      
+        // Envoyer une requête DELETE à l'API
+        fetch(`http://localhost:5678/api/works/${imageId}`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}` 
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Erreur lors de la suppression de l\'image');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('Image supprimée avec succès:', data);
+          // Suppression de l'image du DOM
+          modalFigure.remove();
+          // Trouver et supprimer l'image de la galerie normale également
+          const galleryFigure = gallery.querySelector(`figure[data-image-id="${id}"]`);
+          if (galleryFigure) {
+            galleryFigure.remove();
+          }
+        })
+        .catch(error => {
+          console.error('Une erreur s\'est produite lors de la suppression de l\'image :', error);
+        });
+      });
+      
     });
+    
+    
 
     createFilterButtons();
   })

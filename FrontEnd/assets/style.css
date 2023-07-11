@@ -215,7 +215,9 @@ footer nav ul {
 	border: 1px solid #888;
 	width: 630px;
 	height: 670px;
-	
+	display: flex; 
+	justify-content: center; 
+	align-items: center; 
   }
   
   .close {
@@ -236,14 +238,14 @@ footer nav ul {
   .modal-gallery img {
 	width: 78.12px;
 	height: 104.08px;
-	margin: 10px;
   }
 
   .modal-gallery {
 	display: flex;
 	flex-wrap: wrap;
-	padding: 50px;
-	justify-content: center;
+	padding: 50px 0px 50px 100px;
+	justify-content: start;
+	width: 70%;
   }
 
   .modal-content h3 {
@@ -322,17 +324,14 @@ footer nav ul {
 
   #addPhotoButton {
 	border-radius: 25px;
-	margin: 5px;
 	padding: 5px 15px 5px 15px;
 	border-color: #1D6154;
 	background-color: #1D6154;
 	color: #fefefe;
 	font-family: 'Syne', sans-serif;
-	position: absolute;
-	bottom: 20px;
+	position: relative;
 	left: 50%;
 	transform: translateX(-50%);
-
   }
 
   
@@ -354,5 +353,31 @@ footer nav ul {
 	font-family: 'Work Sans';
   }
   
+  .modal-content figure {
+	position: relative;
+	width: 20%; 
+	height: 20%; 
+	margin-bottom: 5px;
+}
+
+i.far.fa-trash-can {
+	background-color: #000;
+	color: white;
+	font-size: 10px;
+}
+
+.delete-button	{
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 22px;
+	height: 22px;
+	margin: 5px 15px 0px 0px;
+	background-color: black;
+	border: none;
+	border-radius: 3px;
+	padding-bottom: 4px;
+}	
   
+
   
