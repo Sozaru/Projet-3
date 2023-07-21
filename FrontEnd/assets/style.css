@@ -251,8 +251,7 @@ footer nav ul {
   .modal-content h3 {
 	font-size: 26px;
 	width: 50%;
-	padding-left: 200px;
-	padding-top: 50px;
+	padding: 30px 0px 30px 240px;
 	
   }
 
@@ -340,7 +339,7 @@ footer nav ul {
 	display: block;
 	position: absolute;
 	top: -40px;
-	left: -100%;
+	left: -155%;
 	width: 470px;
 	height: 2px;
 	background-color: #ccc;
@@ -379,5 +378,30 @@ i.far.fa-trash-can {
 	padding-bottom: 4px;
 }	
   
-
   
+#title	{
+	padding: 15px;
+	border: white;
+	box-shadow: -12px 10px 13px 4px #00000017;
+	margin: 10px 30px 30px 30px;
+}
+
+#category	{
+	padding: 15px;
+	border: white;
+	box-shadow: -12px 10px 13px 4px #00000017;
+	background-color: #fefefe;
+	margin: 10px 30px 30px 30px;
+}
+
+label	{
+	padding: 20px 0px 5px 30px;
+}
+
+#image	{
+	padding: 80px 0px 80px 120px;
+	margin: 0px 50px 0px 100px;
+	background-color: #E8F1F6;
+	width: 50%;
+}
+

@@ -49,16 +49,15 @@ fetch('http://localhost:5678/api/works')
       // Insertion du bouton dans la figure modale
       modalFigure.insertBefore(deleteButton, modalFigure.childNodes[0]);
 
-      deleteButton.addEventListener('click', () => {
-      });      
-
       const modalFigcaption = modalFigure.querySelector('figcaption');
       modalFigcaption.textContent = 'éditer'; 
       
       // Ajout de la figure à la galerie modale
       document.querySelector('.modal-gallery').appendChild(modalFigure);
 
-      deleteButton.addEventListener('click', () => {
+      deleteButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
         // Récupérer l'ID de l'image
         const imageId = modalFigure.getAttribute('data-image-id');
       
@@ -185,7 +184,7 @@ modalContent.classList.remove('hidden');
 
 const addPhotoButton = document.createElement('button');
 addPhotoButton.setAttribute('id', 'addPhotoButton');
-addPhotoButton.textContent = 'Ajouter une photo';
+addPhotoButton.textContent = 'Ajout photo';
 addPhotoButton.addEventListener('click', openNewModal);
 modalContent.appendChild(addPhotoButton);
 
@@ -201,7 +200,7 @@ const addPhotoForm = document.getElementById('addPhotoForm');
 modalAddPhoto.insertBefore(closeButton, addPhotoForm);
 
 const newModalTitle = document.createElement('h3');
-newModalTitle.textContent = 'Ajouter une photo';
+newModalTitle.textContent = 'Ajout photo';
 modalAddPhoto.insertBefore(newModalTitle, addPhotoForm);
 
 const newModalContentBody = document.createElement('div');
@@ -277,8 +276,7 @@ function handleAddPhotoFormSubmit(event) {
       if(response.ok){
       // Traiter la réponse de l'API (par exemple, afficher un message de succès)
       console.log('Photo ajoutée avec succès:', data);
-      // Fermer la modal d'ajout de photo
-      closeModalAddPhoto();
+
       // Rafraîchir la galerie d'images pour afficher la nouvelle photo
       refreshGallery();}else{console.error('photo rejeter par le server')}
     })
@@ -289,6 +287,8 @@ function handleAddPhotoFormSubmit(event) {
 
 // Ajouter un gestionnaire d'événement à la soumission du formulaire d'ajout de photo
 addPhotoForm.addEventListener('submit', handleAddPhotoFormSubmit);
+
+
 
 
 createReturnButton();
