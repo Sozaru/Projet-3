@@ -10,8 +10,6 @@ const closeBtn = document.querySelector(".close");
 fetch("http://localhost:5678/api/works")
   .then((response) => response.json())
   .then((data) => {
-    // const gallery = document.querySelector('.gallery');
-    // const modalGallery = document.querySelector('.modal-gallery');
 
     data.forEach((work) => {
       displayOneWork(work);
@@ -30,7 +28,6 @@ fetch("http://localhost:5678/api/works")
 
 
     // Ajout de la modal pour l'ajout de photo
-//    modalContent.classList.remove("hidden");
 
     const addPhotoButton = document.createElement("button");
     addPhotoButton.setAttribute("id", "addPhotoButton");
@@ -57,7 +54,8 @@ fetch("http://localhost:5678/api/works")
 
     // Ajouter un gestionnaire d'événement à la soumission du formulaire d'ajout de photo
     addPhotoForm.addEventListener("submit", handleAddPhotoFormSubmit);
-
+    addPhotoForm.addEventListener("click", () => {modalAddPhoto.style.display = "none";
+    modalContent.style.display = "block";})
     createReturnButton();
 
     checkLoginStatus();
@@ -80,7 +78,11 @@ function displayOneWork(work) {
 
   const figure = document.createElement("figure");
   // Ajout des attributs aux éléments figure
-  figure.setAttribute("data-category", work.category.name);
+  if (work.categoryId){
+    figure.setAttribute("data-category", work.categoryId);
+  }else{
+    figure.setAttribute("data-category", work.category.id);
+  }
   figure.setAttribute("data-image-id", work.id);
 
   figure.appendChild(image);
@@ -114,7 +116,6 @@ function displayOneWork(work) {
 
   deleteButton.addEventListener("click", (event) => {
     event.preventDefault();
-    // event.stopPropagation();
     // Récupérer l'ID de l'image
     const imageId = modalFigure.getAttribute("data-image-id");
 
@@ -125,22 +126,24 @@ function displayOneWork(work) {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
-      .then((response) => {
-        if (response.ok) {
-          console.log("Image supprimée avec succès:");
-         // Suppression de l'image du DOM
-          modalFigure.remove();
-          // Trouver et supprimer l'image de la galerie normale également
-          const galleryFigure = gallery.querySelector(
-            `figure[data-image-id="${id}"]`
-          );
-          if (galleryFigure) {
-            galleryFigure.remove();
-          }
-        }else{
-          throw new Error("Erreur lors de la suppression de l'image");
+    .then((response) => {
+      if (response.ok) {
+        console.log("Image supprimée avec succès:");
+        // Suppression de l'image du DOM
+        modalFigure.remove();
+        // Trouver et supprimer l'image de la galerie normale également
+        const gallery = document.querySelector(".gallery");
+        const galleryFigure = gallery.querySelector(
+          `figure[data-image-id="${imageId}"]`
+        );
+        if (galleryFigure) {
+          galleryFigure.remove();
         }
-      })
+      }else{
+        throw new Error("Erreur lors de la suppression de l'image");
+      }
+    })
+    
       .catch((error) => {
         console.error(
           "Une erreur s'est produite lors de la suppression de l'image :",
@@ -156,14 +159,14 @@ function createFilterButtons() {
 
   const categories = ["Tous", "Objets", "Appartements", "Hotels & restaurants"];
 
-  categories.forEach((category) => {
+  categories.forEach((category, index) => {
     const button = document.createElement("button");
     button.classList.add("filter-button");
-    button.setAttribute("data-category", category);
+    button.setAttribute("data-category", index);
     button.textContent = category;
 
     button.addEventListener("click", () => {
-      filterWorks(category);
+      filterWorks(index);
     });
 
     filterButtons.appendChild(button);
@@ -173,7 +176,7 @@ function createFilterButtons() {
     .querySelector("#portfolio")
     .insertBefore(filterButtons, document.querySelector(".gallery"));
 
-  filterWorks("Tous"); // Filtrage initial avec la catégorie "Tous"
+  filterWorks(0); // Filtrage initial avec la catégorie "Tous"
 }
 
 // Fonction pour filtrer les oeuvres en fonction de la catégorie
@@ -182,8 +185,7 @@ function filterWorks(category) {
 
   figures.forEach((figure) => {
     const figureCategory = figure.getAttribute("data-category");
-
-    if (category === "Tous" || category === figureCategory) {
+    if (category === 0 || category == figureCategory) {
       figure.style.display = "block";
     } else {
       figure.style.display = "none";
@@ -287,8 +289,7 @@ function handleAddPhotoFormSubmit(event) {
       } else {
         console.error("photo rejetée par le server");
       }
-    })
-    .then(function (data) {
+    }).then(function (data) {
         // Rafraîchir la galerie d'images pour afficher la nouvelle photo
       displayOneWork(data);
     })
