@@ -54,8 +54,7 @@ fetch("http://localhost:5678/api/works")
 
     // Ajouter un gestionnaire d'événement à la soumission du formulaire d'ajout de photo
     addPhotoForm.addEventListener("submit", handleAddPhotoFormSubmit);
-    addPhotoForm.addEventListener("click", () => {modalAddPhoto.style.display = "none";
-    modalContent.style.display = "block";})
+   
     createReturnButton();
 
     checkLoginStatus();
@@ -259,10 +258,6 @@ function createReturnButton() {
 function handleAddPhotoFormSubmit(event) {
   event.preventDefault(); // Empêcher le rechargement de la page
 
-  function refreshGallery() {
-    // Code pour mettre à jour la galerie d'images
-  }
-
   // Récupérer les valeurs du formulaire
   const photoTitle = document.getElementById("title").value;
   const photoFile = document.getElementById("image").files[0];
@@ -273,6 +268,7 @@ function handleAddPhotoFormSubmit(event) {
   formData.append("image", photoFile);
   formData.append("title", photoTitle);
   formData.append("category", photoCategory);
+  
   // Effectuer une requête POST vers l'API pour ajouter la photo
   fetch("http://localhost:5678/api/works", {
     method: "POST",
@@ -292,6 +288,9 @@ function handleAddPhotoFormSubmit(event) {
     }).then(function (data) {
         // Rafraîchir la galerie d'images pour afficher la nouvelle photo
       displayOneWork(data);
+
+      // Retourner à la modal "modal-content"
+      returnModalAddPhoto();
     })
     .catch((error) => {
       console.error(
@@ -300,3 +299,4 @@ function handleAddPhotoFormSubmit(event) {
       );
     });
 }
+
