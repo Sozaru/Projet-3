@@ -1,4 +1,5 @@
 var loginLink = document.getElementById("login");
+var active_category=0
 const openModalButton = document.getElementById("openmodalbutton");
 const modalContent = document.getElementById("modal-content");
 const modalAddPhoto = document.getElementById("modal-add-photo");
@@ -86,6 +87,7 @@ function displayOneWork(work) {
 
   figure.appendChild(image);
   figure.appendChild(figcaption);
+  
 
   // Ajoutez le clone figure à la galerie normale
   document.querySelector(".gallery").appendChild(figure.cloneNode(true));
@@ -112,6 +114,8 @@ function displayOneWork(work) {
 
   // Ajout de la figure à la galerie modale
   document.querySelector(".modal-gallery").appendChild(modalFigure);
+
+  filterWorks(active_category)
 
   deleteButton.addEventListener("click", (event) => {
     event.preventDefault();
@@ -181,7 +185,7 @@ function createFilterButtons() {
 // Fonction pour filtrer les oeuvres en fonction de la catégorie
 function filterWorks(category) {
   const figures = document.querySelectorAll(".gallery figure");
-
+  active_category=category;
   figures.forEach((figure) => {
     const figureCategory = figure.getAttribute("data-category");
     if (category === 0 || category == figureCategory) {
