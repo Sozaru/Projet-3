@@ -16,8 +16,6 @@ fetch("http://localhost:5678/api/works")
       displayOneWork(work);
     });
 
-    createFilterButtons();
-
     openModalButton.addEventListener("click", openModal);
     closeBtn.addEventListener("click", closeModal);
 
@@ -69,6 +67,7 @@ fetch("http://localhost:5678/api/works")
 
 function displayOneWork(work) {
   // Création des éléments HTML pour chaque image
+  console.log("debug--------------------------------")
   const image = document.createElement("img");
   image.src = work.imageUrl;
   image.alt = work.title;
@@ -78,6 +77,7 @@ function displayOneWork(work) {
 
   const figure = document.createElement("figure");
   // Ajout des attributs aux éléments figure
+  
   if (work.categoryId){
     figure.setAttribute("data-category", work.categoryId);
   }else{
